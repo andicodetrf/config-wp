@@ -13,15 +13,22 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			// {
+			// 	test: /\.css$/,
+			// 	//css-loader -> now you can just load it (main.css) in your JS file
+			// 	//style-loader -> injects that css-turn-js code into DOM
+			// 	//there is a strict order to using these 2 loaders based on above seq.
+			// 	//hence order must be css-loader, then style-loader
+			// 	//however, orders are reversed (right - to - left) in WP.
+			// 	//tho it looks like SL load first, its actually CL that load first.
+			// 	use: ["style-loader", "css-loader"],
+			// },
 			{
-				test: /\.css$/,
-				//css-loader -> now you can just load it (main.css) in your JS file
-				//style-loader -> injects that css-turn-js code into DOM
-				//there is a strict order to using these 2 loaders based on above seq.
-				//hence order must be css-loader, then style-loader
-				//however, orders are reversed (right - to - left) in WP.
-				//tho it looks like SL load first, its actually CL that load first.
-				use: ["style-loader", "css-loader"],
+				//to use sass, add sass-loader (requires node-sass as well)
+				//sequence:
+				//turn sass into css, turn css into commonjs, then inject js into DOM
+				test: /\.scss$/,
+				use: ["style-loader", "css-loader", "sass-loader"],
 			},
 		],
 	},
