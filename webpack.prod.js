@@ -16,7 +16,9 @@ const { merge } = require("webpack-merge");
 module.exports = merge(common, {
 	mode: "production",
 	output: {
-		filename: "main.[contenthash].js",
+		// filename: "main.[contenthash].js",
+		//dynamic filename for bundle-splitting
+		filename: "[name].[contenthash].bundle.js",
 		path: path.resolve(__dirname, "dist"),
 		//svg filename & dirname in dist
 		assetModuleFilename: "images/[name].[hash][ext]",

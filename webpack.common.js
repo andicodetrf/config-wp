@@ -5,7 +5,12 @@ module.exports = {
 	//if mode is development, it will stop WP from minifying - for debugging
 	// mode: "development",
 	// devtool: false,
-	entry: "./src/index.js",
+	// entry: "./src/index.js",
+	//to split into multiple bundles
+	entry: {
+		main: "./src/index.js",
+		vendor: "./src/vendor.js",
+	},
 	// output: {
 	// 	//filename will become hello.js instead of main.js. reverted
 	// 	//prob with filename: "main.js" is that it will always be the same name so you cant purge browser cache even if you main.js is updated with new code.
