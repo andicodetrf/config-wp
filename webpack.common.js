@@ -31,13 +31,14 @@ module.exports = {
 			// 	//tho it looks like SL load first, its actually CL that load first.
 			// 	use: ["style-loader", "css-loader"],
 			// },
-			{
-				//to use sass, add sass-loader (requires node-sass as well)
-				//sequence:
-				//turn sass into css, turn css into commonjs, then inject js into DOM
-				test: /\.scss$/,
-				use: ["style-loader", "css-loader", "sass-loader"],
-			},
+			// {
+			// 	//to use sass, add sass-loader (requires node-sass as well)
+			// 	//sequence:
+			// 	//turn sass into css, turn css into commonjs, then inject js into DOM
+			// 	//to extract css into its own file for prod, extract this into wp.dev instead.
+			// 	test: /\.scss$/,
+			// 	use: ["style-loader", "css-loader", "sass-loader"],
+			// },
 			{
 				//to resolve asset filetypes
 				//the htmlwppluggin is gonna ask WP to use template.html, then this html-loader is gonna takeover the html
@@ -67,6 +68,8 @@ module.exports = {
 	},
 	//HtmlWebpackPlugin() will generate a html file for us to handle our script tag dynamic build filename
 	//to specify which template file to use for adding the dynamic script tag, add the template property as an arg.
+	//final part: minimizing html file. will move non-mini config to wp.dev & mini-config to wp.prod.
+	//discovery: no separate config needed in prod as html file is also minimized by default in prod mode
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: "./src/template.html",
