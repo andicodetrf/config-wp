@@ -1,4 +1,5 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
 	//if mode is development, it will stop WP from minifying - for debugging
@@ -7,7 +8,9 @@ module.exports = {
 	entry: "./src/index.js",
 	output: {
 		//filename will become hello.js instead of main.js. reverted
-		filename: "main.js",
+		//prob with filename: "main.js" is that it will always be the same name so you cant purge browser cache even if you main.js is updated with new code.
+		//the only way the browser will self-purge is if the filenames are different. a common way of doing this is hashing filename when content changes
+		filename: "main.[contenthash].js",
 		//build dir will be /andi/xx/ANDI_BUILD instead of xx/dist. reverted
 		path: path.resolve(__dirname, "dist"),
 	},
@@ -32,4 +35,11 @@ module.exports = {
 			},
 		],
 	},
+	//HtmlWebpackPlugin() will generate a html file for us to handle our script tag dynamic build filename
+	//to specify which template file to use for adding the dynamic script tag, add the template property as an arg.
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: "./src/template.html",
+		}),
+	],
 };
