@@ -18,5 +18,9 @@ module.exports = merge(common, {
 	output: {
 		filename: "main.[contenthash].js",
 		path: path.resolve(__dirname, "dist"),
+		//svg filename & dirname in dist
+		assetModuleFilename: "images/[name].[hash][ext]",
+		//cleans dist dir
+		clean: true,
 	},
 });

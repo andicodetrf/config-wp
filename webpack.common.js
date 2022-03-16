@@ -33,6 +33,31 @@ module.exports = {
 				test: /\.scss$/,
 				use: ["style-loader", "css-loader", "sass-loader"],
 			},
+			{
+				//to resolve asset filetypes
+				//the htmlwppluggin is gonna ask WP to use template.html, then this html-loader is gonna takeover the html
+				//as it encounters img src attr, its gonna require the file.
+				test: /\.html$/,
+				use: ["html-loader"],
+			},
+			{
+				//since WP5, file-loader is deprecated
+				//asset/resource emits a separate file and exports the URL. Previously achievable by using file-loader
+				//outputPath (asset's dir can be configed in output property (see wp.prod))
+				test: /\.(svg|png|jpg|gif)$/i,
+				type: "asset/resource",
+			},
+			// {
+			// 	//since WP5, file-loader is deprecated but can still be used
+			// 	test: /\.(svg|png|jpg|gif)$/,
+			// 	use: {
+			// 		loader: "file-loader",
+			// 		options: {
+			// 			name: "[name].[hash].[ext]",
+			// 			outputPath: "imgs",
+			// 		},
+			// 	},
+			// },
 		],
 	},
 	//HtmlWebpackPlugin() will generate a html file for us to handle our script tag dynamic build filename
