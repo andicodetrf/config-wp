@@ -18,7 +18,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 //merge common + dev
 module.exports = merge(common, {
 	mode: "development",
-	devtool: false,
+	devtool: "source-map", //shows your app dir + code in browser devtool
 	output: {
 		filename: "[name].bundle.js",
 		path: path.resolve(__dirname, "dist"),
