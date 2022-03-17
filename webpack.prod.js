@@ -4,6 +4,7 @@ const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 //some items can be removed coz it'll fallback to using those in webpack.common.js
 //in order to use some functionalities from webpack.common file, need to use webpack merge
@@ -43,8 +44,21 @@ module.exports = merge(common, {
 	// For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`)
 	optimization: {
 		minimizer: [
-			`...`,
+			// `...`,
 			new CssMinimizerPlugin(),
+			//remove those console types from dist
+			new TerserPlugin({
+				terserOptions: {
+					compress: {
+						pure_funcs: [
+							"console.info",
+							"console.debug",
+							"console.warn",
+							"console.log",
+						],
+					},
+				},
+			}),
 			// new HtmlWebpackPlugin({
 			// 	template: "./src/template.html",
 			// 	// minify: {
